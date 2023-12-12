@@ -1,0 +1,73 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Password Strength Checker</h1>
+
+                <form action="/predict_strength" method="post">
+                    <div class="form-group">
+                        <label for="password">Enter Password:</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <input type="checkbox" onclick="togglePasswordVisibility()"> Show
+                                    Password
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Check Strength</button>
+                    <div>
+                        <p>Password: {{ password }}</p>
+                        <p>Strength: {{ prediction }}</p>
+                    </div>
+                </form>
+
+
+                {% if feedback %}
+                <div class="mt-4 alert alert-danger">
+                    <p><strong>Feedback:</strong></p>
+                    <p>{{ feedback | safe }}</p>
+                </div>
+                {% endif %}
+                
+                
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>
